@@ -1,13 +1,10 @@
 import sqlite3
-import os
 
 DB_NAME = "users.db"
-
 
 # --------- Databas ---------
 def get_connection():
     return sqlite3.connect(DB_NAME)
-
 
 def init_db():
     conn = get_connection()
@@ -23,11 +20,12 @@ def init_db():
     conn.commit()
     conn.close()
 
-
 # --------- GDPR-funktioner ---------
-def add_user():
-    name = input("Ange namn: ")
-    email = input("Ange e-post: ")
+def add_user(name=None, email=None):
+    if name is None:
+        name = input("Ange namn: ")
+    if email is None:
+        email = input("Ange e-post: ")
 
     conn = get_connection()
     conn.execute(
@@ -36,9 +34,7 @@ def add_user():
     )
     conn.commit()
     conn.close()
-
     print("✅ Användare skapad")
-
 
 def list_users():
     conn = get_connection()
@@ -52,9 +48,9 @@ def list_users():
     for user in users:
         print(f"{user[0]} | {user[1]} | {user[2]} | {user[3]}")
 
-
-def anonymize_user():
-    user_id = input("Ange användar-ID att anonymisera: ")
+def anonymize_user(user_id=None):
+    if user_id is None:
+        user_id = input("Ange användar-ID att anonymisera: ")
 
     conn = get_connection()
     conn.execute("""
@@ -65,12 +61,11 @@ def anonymize_user():
     """, (user_id,))
     conn.commit()
     conn.close()
-
     print("✅ Användare anonymiserad (GDPR)")
 
-
-def delete_user():
-    user_id = input("Ange användar-ID att radera: ")
+def delete_user(user_id=None):
+    if user_id is None:
+        user_id = input("Ange användar-ID att radera: ")
 
     conn = get_connection()
     conn.execute("""
@@ -80,34 +75,24 @@ def delete_user():
     """, (user_id,))
     conn.commit()
     conn.close()
-
     print("✅ Användare raderad (GDPR)")
 
 def reset_test_data():
     conn = get_connection()
-
-    # Töm tabellen
     conn.execute("DELETE FROM users")
-
-    # Lägg in testdata igen
     test_users = [
         ("Anna Test", "anna@test.se"),
         ("Bertil Test", "bertil@test.se"),
         ("Cecilia Test", "cecilia@test.se")
     ]
-
     for name, email in test_users:
         conn.execute(
             "INSERT INTO users (name, email, created_at) VALUES (?, ?, datetime('now'))",
             (name, email)
         )
-
     conn.commit()
     conn.close()
-
     print("✅ Testdata har återställts")
-
-
 
 # --------- Meny ---------
 def show_menu():
@@ -119,15 +104,11 @@ def show_menu():
     print("5. Återställ testdata")
     print("6. Avsluta")
 
-
-
 def main():
     init_db()
-
     while True:
         show_menu()
         choice = input("Välj: ")
-
         if choice == "1":
             add_user()
         elif choice == "2":
@@ -143,7 +124,6 @@ def main():
             break
         else:
             print("❌ Ogiltigt val")
-
 
 if __name__ == "__main__":
     main()
