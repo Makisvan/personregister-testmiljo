@@ -1,58 +1,62 @@
-🛡️ GDPR Test Data System
+# 🛡️ GDPR Test Data System
 
-Detta projekt är en enkel testmiljö för hantering av personuppgifter enligt GDPR.
+Detta projekt är en enkel testmiljö för hantering av personuppgifter enligt GDPR.  
 Systemet är byggt i Python med SQLite och körs i Docker för att simulera hur persondata kan behandlas säkert.
 
 Projektet är avsett för utbildning och testning – ingen riktig persondata ska användas.
 
-📦 Funktioner
+---
+
+## 📦 Funktioner
 
 Systemet simulerar vanliga GDPR-relaterade åtgärder:
 
-✅ Skapa användare (namn + e-post)
+✅ Skapa användare (namn + e-post)  
+✅ Visa lagrade användare  
+✅ Anonymisera användare  
+✅ Radera användare (soft delete)  
+✅ Återställa testdata  
 
-✅ Visa lagrade användare
+---
 
-✅ Anonymisera användare
-
-✅ Radera användare (soft delete)
-
-✅ Återställa testdata
-
-🛠 Teknik
+## 🛠 Teknik
 
 Projektet använder:
 
-Python 3.11
+- Python 3.11  
+- SQLite3  
+- Docker  
+- Docker Compose  
+- GitHub Actions (CI)  
 
-SQLite3
+---
 
-Docker
+## 📁 Projektstruktur
 
-Docker Compose
-
-GitHub Actions (CI)
-
-📁 Projektstruktur
 personregister-testmiljo/
 ├── app.py
+├── test_gdpr.py
 ├── Dockerfile
 ├── docker-compose.yml
 ├── users.db
 ├── .gitignore
 └── .github/
-    └── workflows/
-        └── ci.yml
+└── workflows/
+└── ci.yml
 
-🚀 Starta systemet
-1. Bygg och starta containern
-docker compose up --build
+## 🚀 Starta systemet
 
-2. Stoppa systemet
+### 1️⃣ Bygg och starta containern
+
+```powershell
+docker compose up --build -d
+Containern hålls nu igång i bakgrunden, och din lokala kod speglas automatiskt via volymen.
+
+2️⃣ Stoppa systemet
+powershell
+Kopiera kod
 docker compose down
-
 ▶️ Använd systemet
-
 När programmet startar visas denna meny:
 
 === GDPR Test Data System ===
@@ -62,8 +66,7 @@ När programmet startar visas denna meny:
 4. Radera användare
 5. Återställ testdata
 6. Avsluta
-
-Exempel på testflöde
+Exempel på flöde:
 
 Välj 1 → Lägg till användare
 
@@ -77,32 +80,32 @@ Välj 4 → Radera användare
 
 Välj 5 → Återställ testdata
 
-🔐 GDPR-simulering
+🧪 Köra tester
+Kör en specifik testfil
+powershell
 
+Kopiera kod
+docker exec -it gdpr-python-app python /app/test_gdpr.py
+
+Kör alla tester i /app automatiskt
+powershell
+
+Kopiera kod
+docker exec -it gdpr-python-app python -m unittest discover -s /app -p "test*.py"
+
+Testerna använder en separat databas test_users.db och påverkar inte produktionsdatabasen.
+
+🔐 GDPR-simulering
 Detta system simulerar flera viktiga GDPR-principer:
 
-Rättigheter som simuleras
 GDPR-rättighet	Funktion i systemet
 Rätt till tillgång	Visa användare
 Rätt till radering	Radera användare
 Rätt till anonymisering	Anonymisera användare
 Rätt till dataminimering	Endast nödvändiga fält lagras
 Soft delete	deleted_at används istället för hård radering
-🧪 Återställa testdata
-
-För att snabbt återskapa testanvändare:
-
-Välj menyval:
-
-5. Återställ testdata
-
-
-Eller radera databasen manuellt:
-
-del users.db
 
 🔄 CI/CD
-
 Projektet innehåller en enkel GitHub Actions workflow som automatiskt körs vid:
 
 push
@@ -112,10 +115,8 @@ pull request
 Den testar att Python-koden kan startas korrekt.
 
 ⚠️ Viktigt
-
 Detta projekt ska endast användas för test.
 Använd aldrig riktig persondata.
 
 👤 Författare
-
 Skapad som ett testprojekt för GDPR-koncept och DevOps-övning.

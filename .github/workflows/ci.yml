@@ -15,3 +15,6 @@ jobs:
 
       - name: Build Docker image
         run: docker build -t gdpr-python-app .
+
+      - name: Run tests
+        run: python -m unittest

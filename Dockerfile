@@ -2,7 +2,11 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-COPY app.py .
+# Vi kopierar fortfarande app.py för build, men volymen kommer skriva över det
+COPY app.py /app/app.py
 
-CMD ["python", "app.py"]
+# Default CMD = bash, så containern hålls igång
+CMD ["bash"]
+
+
 
