@@ -1,0 +1,7 @@
+services:
+  gdpr-app:
+    build: .
+    container_name: gdpr-python-app
+    stdin_open: true
+    tty: true
+
