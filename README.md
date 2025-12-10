@@ -8,6 +8,7 @@ Appen använder:
 - sqlite3
 - Docker
 - Docker Compose
+- CI/CD Github Actions
 
 ## Funktioner
 
