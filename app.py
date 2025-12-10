@@ -83,6 +83,31 @@ def delete_user():
 
     print("✅ Användare raderad (GDPR)")
 
+def reset_test_data():
+    conn = get_connection()
+
+    # Töm tabellen
+    conn.execute("DELETE FROM users")
+
+    # Lägg in testdata igen
+    test_users = [
+        ("Anna Test", "anna@test.se"),
+        ("Bertil Test", "bertil@test.se"),
+        ("Cecilia Test", "cecilia@test.se")
+    ]
+
+    for name, email in test_users:
+        conn.execute(
+            "INSERT INTO users (name, email, created_at) VALUES (?, ?, datetime('now'))",
+            (name, email)
+        )
+
+    conn.commit()
+    conn.close()
+
+    print("✅ Testdata har återställts")
+
+
 
 # --------- Meny ---------
 def show_menu():
@@ -91,7 +116,9 @@ def show_menu():
     print("2. Visa användare")
     print("3. Anonymisera användare")
     print("4. Radera användare")
-    print("5. Avsluta")
+    print("5. Återställ testdata")
+    print("6. Avsluta")
+
 
 
 def main():
@@ -110,6 +137,8 @@ def main():
         elif choice == "4":
             delete_user()
         elif choice == "5":
+            reset_test_data()
+        elif choice == "6":
             print("Hejdå 👋")
             break
         else:
