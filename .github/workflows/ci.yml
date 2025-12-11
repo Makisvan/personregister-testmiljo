@@ -6,7 +6,7 @@ on:
   pull_request:
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,5 +16,11 @@ jobs:
       - name: Build Docker image
         run: docker build -t gdpr-python-app .
 
-      - name: Run tests
-        run: python -m unittest
+      - name: Run container and execute tests
+        run: |
+          docker run --name test-container gdpr-python-app /bin/sh -c "python /app/test_gdpr.py"
+
+      - name: Cleanup
+        if: always()
+        run: docker rm -f test-container
+

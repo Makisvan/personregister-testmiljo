@@ -119,4 +119,4 @@ Detta projekt ska endast användas för test.
 Använd aldrig riktig persondata.
 
 👤 Författare
-Skapad som ett testprojekt för GDPR-koncept och DevOps-övning.
+Skapad som ett testprojekt för GDPR-koncept och DevOps-övning..
