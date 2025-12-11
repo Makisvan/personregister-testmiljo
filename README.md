@@ -59,6 +59,8 @@ docker compose down
 ▶️ Använd systemet
 När programmet startar visas denna meny:
 
+markdown
+Kopiera kod
 === GDPR Test Data System ===
 1. Lägg till användare
 2. Visa användare
@@ -82,14 +84,13 @@ Välj 5 → Återställ testdata
 
 🧪 Köra tester
 Kör en specifik testfil
-powershell
 
+powershell
 Kopiera kod
 docker exec -it gdpr-python-app python /app/test_gdpr.py
 
 Kör alla tester i /app automatiskt
 powershell
-
 Kopiera kod
 docker exec -it gdpr-python-app python -m unittest discover -s /app -p "test*.py"
 
@@ -106,17 +107,25 @@ Rätt till dataminimering	Endast nödvändiga fält lagras
 Soft delete	deleted_at används istället för hård radering
 
 🔄 CI/CD
-Projektet innehåller en enkel GitHub Actions workflow som automatiskt körs vid:
+Projektet innehåller en GitHub Actions workflow som automatiskt körs vid:
 
 push
 
 pull request
 
-Den testar att Python-koden kan startas korrekt.
+Workflowen:
+
+Bygger Docker-imagen
+
+Startar en container
+
+Kör test_gdpr.py inuti containern
+
+Failar om testen misslyckas
 
 ⚠️ Viktigt
 Detta projekt ska endast användas för test.
 Använd aldrig riktig persondata.
 
 👤 Författare
-Skapad som ett testprojekt för GDPR-koncept och DevOps-övning..
+Skapad som ett testprojekt för GDPR-koncept och DevOps-övning.
