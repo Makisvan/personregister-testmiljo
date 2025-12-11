@@ -4,6 +4,7 @@ __pycache__/
 
 # SQLite
 users.db
+test_users.db
 
 # Docker
 .env
